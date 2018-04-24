@@ -10,19 +10,33 @@ function ListNode(val) {
  */
 var removeNthFromEnd = function(head, n) {
   var len = getLength(head);
+  console.log('n  : ', n);
+  console.log('len: ', len);
 
-  var prev = head;
   var current = head;
-  for (var i = 1; i <= len - n; i++) {
+  var prev = head;
+  for (var i = 0; i < len - n; i++) {
+    if (i === 0) {
+      current = head;
+      prev = head;
+    }
+
+    // console.log(prev);
+    // console.log(current);
     prev = current;
     current = current ? current.next : null;
   }
 
-  prev.next = current ? current.next : null;
+  if (prev === current) {
+    return current.next;
+  }
+
 
   if (len === 1 && n === 1) {
     return null;
   }
+
+  prev.next = current ? current.next : null;
 
   return head;
 };
@@ -40,13 +54,14 @@ function getLength(head) {
 
 
 var l1 = new ListNode(1);
-// l1.next = new ListNode(2);
-// l1.next.next = new ListNode(3);
-// l1.next.next.next = new ListNode(4);
-// l1.next.next.next.next = new ListNode(5);
+l1.next = new ListNode(2);
+l1.next.next = new ListNode(3);
+l1.next.next.next = new ListNode(4);
+l1.next.next.next.next = new ListNode(5);
 
-var res = removeNthFromEnd(l1, 1);
+var res = removeNthFromEnd(l1, 2);
+// console.log(res);
 while (res) {
-    console.log(res.val);
-    res = res.next;
+  console.log(res.val);
+  res = res.next;
 }
