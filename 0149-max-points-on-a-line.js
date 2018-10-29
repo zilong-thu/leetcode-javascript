@@ -1,12 +1,10 @@
 /**
- * Definition for a point.
- * function Point(x, y) {
- *     this.x = x;
- *     this.y = y;
- * }
+ * 这个题表明 JS 是无法完成高精度的浮点数计算的。
+ * 因此思路虽然正确，但是无法精确给出结果。
  */
-
-
+/**
+ * Definition for a point.
+ */
 function Point(x, y) {
   this.x = x;
   this.y = y;
