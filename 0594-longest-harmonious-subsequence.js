@@ -17,8 +17,26 @@
  * @return {number}
  */
 var findLHS = function(nums = []) {
-  if (nums.length <=1) {
-    return nums.length;
+  const map = {};
+  for (var i = 0; i < nums.length; i++) {
+    const val = nums[i];
+    if (!map[val]) {
+      map[val] = 1;
+    } else {
+      map[val]++;
+    }
   }
+
+  let max = 0;
+  Object.keys(map).map(key => {
+    const val = Number(key);
+    if (map[val + 1]) {
+      max = Math.max(max, map[val] + map[val + 1]);
+    }
+  });
+
+  return max;
 };
 
+const arr = [1,3,2,2,5,2,3,7];
+console.log(findLHS(arr));
