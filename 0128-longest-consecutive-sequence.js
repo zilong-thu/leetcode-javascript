@@ -11,24 +11,34 @@
 /**
  * @param {number[]} nums
  * @return {number}
+ * 思路就是，首先创建一个集合 set，用于后续判断某个元素是否存在
+ * 然后遍历数组，使用一个对象作为计数器，当前元素 item 作为 key，其初始值为以 item+1 为 key 的值 +1
+ * 不断循环即可
  */
 var longestConsecutive = function(nums) {
-  var map = {};
+  var set = {};
   nums.forEach(item => {
-    if (map[item] === undefined) {
-      map[item] = true;
+    if (set[item] === undefined) {
+      set[item] = true;
     }
+  });
+
+  var map = {};
+  let max = 0;
+  nums.forEach(item => {
+    let currentNum = item;
+    let currentMax = 1;
+    if (map[currentNum] === undefined) {
+      map[currentNum] = 1 + (map[currentNum + 1] || 0);
+      while(set[currentNum - 1]) {
+        map[currentNum - 1] = map[currentNum] + 1;
+        currentNum--;
+      }
+      currentMax = map[currentNum];
+    }
+    max = Math.max(currentMax, max);
   });
   console.log(map);
-
-  let max = 0;
-  Object.keys(map).forEach(item => {
-    let i = 0;
-    while (map[Number(item) + i]) {
-      i++;
-    }
-    max = Math.max(max, i);
-  });
 
   return max;
 };
