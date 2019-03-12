@@ -10,6 +10,47 @@
  * @param {number} amount
  * @return {number}
  */
+var coinChange = (function() {
+  var cache = {};
+  return function(coins, amount) {
+    if (coins.length < 1) {
+      return -1;
+    }
+
+    if (amount < 1) {
+      return -1;
+    }
+
+    if (cache[amount]) {
+      return cache[amount];
+    }
+
+    let min = -1;
+    for (var i = 0; i < coins.length; i++) {
+      const coin = coins[i];
+      const subAmount = amount - coin;
+      if (subAmount > 0) {
+        let newMin = coinChange(coins, subAmount);
+        if (newMin > 0 && min === -1) {
+          min = newMin + 1;
+        }
+        if (newMin > 0) {
+          min = Math.min(newMin + 1, min);
+        }
+      } else if (subAmount === 0) {
+        min = 1;
+      }
+    }
+
+    cache[amount] = min;
+    return min;
+  }
+})();
+
+
+/**
+ * bottom-up method
+ */
 var coinChange2 = (function() {
   return function(coins, amount) {
     var list = new Array(amount + 1);
