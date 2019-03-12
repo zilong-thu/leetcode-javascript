@@ -36,6 +36,8 @@ var maxPoints = function(points) {
   var lineIDs = {};
   var lineMap = {};
 
+  var RATE = 1000000000000.0;
+
   for (var i = 0; i < points.length; i++) {
     for (var j = i + 1; j < points.length; j++) {
       if (lineIDs[`${i}-${j}`]) {
@@ -50,8 +52,8 @@ var maxPoints = function(points) {
       }
 
       let bD = (p1.y * p2.x - p2.y * p1.x);
-      let b = bD === 0 ? 'Infinity' : ((p2.x - p1.x) / bD);
-      let a = bD === 0 ? 'Infinity' : ((p1.y - p2.y) / bD);
+      let b = bD === 0 ? 'Infinity' : (RATE * (p2.x - p1.x) / bD).toPrecision(15);
+      let a = bD === 0 ? 'Infinity' : (RATE * (p1.y - p2.y) / bD).toPrecision(15);
       let c = 1;
 
       // 说明过原点
@@ -59,9 +61,9 @@ var maxPoints = function(points) {
         b = -1;
         c = 0;
         if (p1.x !== 0) {
-          a = (p1.y / p1.x);
+          a = (RATE * p1.y / p1.x).toPrecision(15);
         } else {
-          a = (p2.y / p2.x);
+          a = (RATE * p2.y / p2.x).toPrecision(15);
         }
       }
 
