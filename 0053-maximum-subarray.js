@@ -15,22 +15,17 @@
  */
 var maxSubArray = function(nums) {
   let len = nums.length;
-  let sum = new Array(len);
-  for (var i = 0; i < len; i++) {
-    sum[i] = [];
-    sum[i][i] = nums[i];
-  }
-
+  let dp = new Array(len);
+  dp[0] = nums[0];
   let max = nums[0];
-  // let sum[ij] be the sum of sub array nums[i...j].
-  for (var i = 0; i < len; i++) {
-    for (var j = i + 1; j < len; j++) {
-      sum[i][j] = sum[i][j - 1] + nums[j];
-      max = Math.max(sum[i][j], max);
-    }
+  // let dp[ij] be the dp of sub array nums[i...j].
+  for (var i = 1; i < len; i++) {
+    dp[i] = dp[i - 1] > 0 ? nums[i] + dp[i - 1] : nums[i];
+
+    max = Math.max(max, dp[i]);
   }
 
-  console.log(sum);
+  console.log(dp);
   return max;
 };
 
