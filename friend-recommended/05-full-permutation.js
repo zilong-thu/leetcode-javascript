@@ -1,5 +1,6 @@
 /**
  * 对数组进行全排列
+ * 对应 leetcode 46 题
  */
 
 function permutation(arr) {
