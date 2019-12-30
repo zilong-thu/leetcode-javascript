@@ -18,7 +18,10 @@ var maxSubArray = function(nums) {
   let dp = new Array(len);
   dp[0] = nums[0];
   let max = nums[0];
-  // let dp[ij] be the dp of sub array nums[i...j].
+  /**
+   * dp[i] 的含义:
+   *   表示 [0, ..., i] 范围内，以 nums[i] 为结尾的所有子数组的和的最大值
+   */
   for (var i = 1; i < len; i++) {
     dp[i] = dp[i - 1] > 0 ? nums[i] + dp[i - 1] : nums[i];
 
