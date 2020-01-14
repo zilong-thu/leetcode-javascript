@@ -4,7 +4,7 @@ const param = (f) =>
     n === 0 || n === 1 ? 1 : f(n - 1) + f(n - 2);
 
 function Y(func) {
-  return (n) => 
+  return (n) =>
 }
 
 const fibonacci = Y(param);
